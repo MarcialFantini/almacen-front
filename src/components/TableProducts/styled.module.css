@@ -1,0 +1,19 @@
+.table {
+  width: 100%;
+
+  border: 1px solid black;
+  background: black;
+}
+
+.rowBody td,
+.rowTop th {
+  background: white;
+  padding: 10px;
+  text-align: center;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
