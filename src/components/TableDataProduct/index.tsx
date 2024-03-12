@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { TableProducts } from "../TableProducts";
 
 export const TableDataProduct = () => {
@@ -6,7 +7,7 @@ export const TableDataProduct = () => {
       <h2>Productos admin</h2>
       <ul>
         <li>
-          <button>Crear producto</button>
+          <Link href={"/admin/products/create"}>Crear producto</Link>
         </li>
       </ul>
       <TableProducts></TableProducts>

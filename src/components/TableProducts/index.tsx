@@ -1,38 +1,48 @@
+"use client";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import styled from "./styled.module.css";
-const datosFalsos = [
-  { id: 1, amount: 10, price: 100 },
-  { id: 2, amount: 15, price: 200 },
-  { id: 3, amount: 20, price: 300 },
-  { id: 4, amount: 25, price: 400 },
-  { id: 5, amount: 30, price: 500 },
-  { id: 6, amount: 35, price: 600 },
-  { id: 7, amount: 40, price: 700 },
-  { id: 8, amount: 45, price: 800 },
-  { id: 9, amount: 50, price: 900 },
-  { id: 10, amount: 55, price: 1000 },
-];
+import Link from "next/link";
+import { DeleteProduct } from "@/store/slice/products/actions";
 
 export const TableProducts = () => {
+  const products = useAppSelector(
+    (state) => state.productReducer.adminProducts
+  );
+
+  const dispatch = useAppDispatch();
+  const token = useAppSelector((state) => state.LoginReducer.token);
+
+  const handlerDeleteProduct = (id: string) =>
+    dispatch(DeleteProduct({ id, token: token || "" }));
+
   return (
     <table className={styled.table}>
       <thead>
         <tr className={styled.rowTop}>
-          <th>id</th>
+          <th>name</th>
           <th>amount</th>
           <th>price</th>
           <th>actions</th>
         </tr>
       </thead>
       <tbody className={styled.tbody}>
-        {datosFalsos.map((user) => {
+        {products.map((product) => {
           return (
-            <tr key={user.id} className={styled.rowBody}>
-              <td>{user.id}</td>
-              <td>{user.amount}</td>
-              <td>{user.price}</td>
+            <tr key={product.id} className={styled.rowBody}>
+              <td>{product.name}</td>
+              <td>{product.amount}</td>
+              <td>{product.price}</td>
               <td className={styled.actions}>
-                <button>edit</button>
-                <button>del</button>
+                <Link
+                  style={{ color: "inherit" }}
+                  href={"/admin/products/update/" + product.id}
+                >
+                  <button>Modificar </button>
+                </Link>
+
+                <button onClick={() => handlerDeleteProduct(product.id)}>
+                  del
+                </button>
               </td>
             </tr>
           );

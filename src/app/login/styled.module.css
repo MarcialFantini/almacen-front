@@ -12,45 +12,6 @@
 
 .form {
   position: absolute;
-
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(1px);
-  padding: 20px;
-}
-
-.form,
-.form label {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.form button,
-.form label,
-.form label input {
-  font-size: 2rem;
-}
-
-.btn {
-  font-size: 2rem;
-  width: 100%;
-  height: auto;
-  text-align: center;
-  background: none;
-  color: black;
-  border: black 1px solid;
-  font-weight: bold;
-  text-decoration: none;
-  padding: 10px 20px;
-
-  transition: all 0.3s;
-  cursor: pointer;
-}
-
-.btn:hover {
-  color: white;
-  background: gray;
-  border: 1px solid gray;
 }
 
 .back {
@@ -74,4 +35,11 @@
 
 .activeImage {
   transform: translate(0, 0);
+}
+
+.btn {
+  width: 100%;
+  height: 100%;
+  color: white;
+  text-decoration: none;
 }

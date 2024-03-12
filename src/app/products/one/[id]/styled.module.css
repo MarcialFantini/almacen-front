@@ -1,0 +1,28 @@
+.view {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.product {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.containerText {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+  padding: 0 20%;
+}
+
+.containerText p,
+.containerText h2,
+.containerText {
+  margin: 0;
+}

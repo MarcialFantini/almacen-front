@@ -1,4 +1,3 @@
-import Image from "next/image";
 import styles from "./page.module.css";
 import { SectionPrincipal } from "@/components/SectionPrincipal";
 import { SectionProductsHome } from "@/components/SectionProductsHome";

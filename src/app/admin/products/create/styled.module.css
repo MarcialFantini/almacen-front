@@ -1,0 +1,30 @@
+.view {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 100px 0;
+}
+
+.btn {
+  width: 100%;
+  color: white;
+}
+
+.state {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  background: gray;
+  border-radius: 8px;
+  margin: 10px 0;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.state p {
+  margin: 0;
+  color: black;
+  transition: all 0.3s;
+}

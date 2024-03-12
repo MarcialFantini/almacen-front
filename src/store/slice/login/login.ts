@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { createUserActionThunk, loginUserToken } from "./actions";
 
 interface LoginInterface {
-  token: string;
+  token: string | null;
   isAdmin: boolean;
   isLogin: boolean;
 }
@@ -33,18 +33,14 @@ if (typeof document !== "undefined" && document.cookie !== "null") {
   });
 }
 
-if (!token) {
-  token = "";
-}
-
 const delCookie = (name: string) => {
   document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 };
 
 const initialState: LoginInterface = {
-  token: token ? token : "",
+  token,
   isAdmin: false,
-  isLogin: !!token,
+  isLogin: token !== null,
 };
 
 export const loginSlice = createSlice({
@@ -54,11 +50,7 @@ export const loginSlice = createSlice({
     removeLogin: (state) => {
       console.log(state.token);
       delCookie("jwtToken");
-      state = { ...initialState };
-
-      console.log(document.cookie);
-
-      console.log(state);
+      return (state = { token: null, isAdmin: false, isLogin: false });
     },
   },
   extraReducers: (builder) => {
@@ -102,8 +94,8 @@ export const loginSlice = createSlice({
     });
 
     builder.addCase(loginUserToken.rejected, (state, action) => {
-      state = initialState;
-      delCookie("jwtToken");
+      // state = initialState;
+      // delCookie("jwtToken");
     });
   },
 });

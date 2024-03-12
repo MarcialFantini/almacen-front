@@ -10,7 +10,6 @@ import { loginUserToken } from "@/store/slice/login/actions";
 import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
-  const { isLoad, handlerIsLoad } = IsLoad();
   const [form, setForm] = useState({ email: "", password: "" });
   const handlerSetForm = (event: ChangeEvent<HTMLInputElement>) =>
     setForm({ ...form, [event.target.name]: event.target.value });
@@ -25,23 +24,13 @@ export default function LoginPage() {
   const router = useRouter();
   useEffect(() => {
     console.log(token);
-    if (token.split("").length > 0) {
+    if (token !== null) {
       router.push("/");
     }
   }, [token]);
 
   return (
-    <main className={styled.containerView}>
-      <Suspense>
-        <picture className={styled.back}>
-          <Image
-            onLoad={handlerIsLoad}
-            className={styled.img + " " + (isLoad ? styled.activeImage : "")}
-            src={srcImageBack}
-            alt="paisaje"
-          ></Image>
-        </picture>
-      </Suspense>
+    <div className={styled.containerView}>
       <form onSubmit={handlerCreateUser} className={styled.form}>
         <label>
           Email:
@@ -64,10 +53,12 @@ export default function LoginPage() {
         <button className={styled.btn} type="submit">
           Login
         </button>
-        <Link className={styled.btn} href={"/register"}>
-          Register
-        </Link>
+        <button style={{ width: "100%" }}>
+          <Link className={styled.btn} href={"/register"}>
+            Register
+          </Link>
+        </button>
       </form>
-    </main>
+    </div>
   );
 }

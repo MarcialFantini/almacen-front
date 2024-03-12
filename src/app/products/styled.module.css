@@ -1,0 +1,22 @@
+.view {
+  padding: 100px 10px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.sectionCategoryList {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  list-style: none;
+  padding: 0;
+}
+
+.sectionCategoryList li {
+  list-style: none;
+}
+.sectionProducts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}

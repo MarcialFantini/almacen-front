@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import styled from "./styled.module.css";
 import srcMainImage from "../../../public/images/home/main-image.jpg";

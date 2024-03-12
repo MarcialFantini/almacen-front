@@ -15,7 +15,7 @@ import { useRouter } from "next/navigation";
 
 export default function RegisterPage() {
   const router = useRouter();
-  const { isLoad, handlerIsLoad } = IsLoad();
+
   const [form, setForm] = useState<UserInterface>({
     name: "",
     lastName: "",
@@ -36,23 +36,12 @@ export default function RegisterPage() {
   const token = useAppSelector((state) => state.LoginReducer.token);
 
   useEffect(() => {
-    if (token.split("").length > 0) {
+    if (token) {
       router.push("/");
     }
   }, [token]);
   return (
     <main className={styled.containerView}>
-      <Suspense>
-        <picture className={styled.back}>
-          <Image
-            onLoad={handlerIsLoad}
-            className={styled.img + " " + (isLoad ? styled.activeImage : "")}
-            src={srcImageBack}
-            alt="paisaje"
-          ></Image>
-        </picture>
-      </Suspense>
-
       <form onSubmit={handlerCreateUser} className={styled.form}>
         <label>
           Nombre:
@@ -73,9 +62,15 @@ export default function RegisterPage() {
         <button className={styled.btn} type="submit">
           Registrar
         </button>
-        <Link className={styled.btn} href={"/login"}>
-          Iniciar Sesión
-        </Link>
+        <button style={{ width: "100%" }}>
+          <Link
+            style={{ color: "white", textDecoration: "none" }}
+            className={styled.btn}
+            href={"/login"}
+          >
+            Iniciar Sesión
+          </Link>
+        </button>
       </form>
     </main>
   );

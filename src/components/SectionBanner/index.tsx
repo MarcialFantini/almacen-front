@@ -9,9 +9,10 @@ const banners: BannerInterface[] = [
 export const SectionBanner = () => {
   return (
     <section>
-      {banners.map((banner) => {
+      {banners.map((banner, index) => {
         return (
           <Banner
+            key={index}
             title={banner.title}
             src={banner.src}
             category={banner.category}
