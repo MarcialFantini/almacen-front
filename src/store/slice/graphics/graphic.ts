@@ -1,5 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getOrdersGraphics } from "./action";
+import { getOrdersGraphics, getProductsCategoryCount } from "./action";
+export interface ProductsCountCategoryResponse {
+  data: ProductsCountCategory[];
+  code: number;
+}
+
+export interface ProductsCountCategory {
+  category: string;
+  cantidad: string;
+}
 
 export interface OrdersGraphic {
   id: string;
@@ -8,10 +17,12 @@ export interface OrdersGraphic {
 }
 export interface graphicsState {
   orders: OrdersGraphic[];
+  products: ProductsCountCategory[];
 }
 
 const initialState: graphicsState = {
   orders: [],
+  products: [],
 };
 
 const OrdersGraphicSlice = createSlice({
@@ -21,6 +32,9 @@ const OrdersGraphicSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(getOrdersGraphics.fulfilled, (state, action) => {
       state.orders = action.payload;
+    });
+    builder.addCase(getProductsCategoryCount.fulfilled, (state, action) => {
+      state.products = action.payload;
     });
   },
 });

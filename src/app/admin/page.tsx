@@ -4,7 +4,10 @@ import styled from "./styled.module.css";
 import { Bar } from "react-chartjs-2";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { useEffect } from "react";
-import { getOrdersGraphics } from "@/store/slice/graphics/action";
+import {
+  getOrdersGraphics,
+  getProductsCategoryCount,
+} from "@/store/slice/graphics/action";
 
 import {
   BarElement,
@@ -21,6 +24,9 @@ type GroupedOrders = {
 
 export default function AdminPage() {
   const orders = useAppSelector((state) => state.OrdersGraphicReducer.orders);
+  const products = useAppSelector(
+    (state) => state.OrdersGraphicReducer.products
+  );
   const dispatch = useAppDispatch();
 
   const groupOrdersByDay = () => {
@@ -43,10 +49,18 @@ export default function AdminPage() {
 
   useEffect(() => {
     dispatch(getOrdersGraphics(""));
+    dispatch(getProductsCategoryCount(""));
   }, []);
   return (
     <main className={styled.containerPage}>
+      <div className={styled.containerRow}>
+        <Link href={"/admin/products"}>Productos</Link>
+        <Link href={"/admin/users"}>Usuarios</Link>
+        <Link href={"/admin/orders"}>Ordenes</Link>
+      </div>
+
       <div>
+        <h2>Ordenes:</h2>
         <Bar
           options={{
             scales: {
@@ -64,8 +78,8 @@ export default function AdminPage() {
               {
                 label: "Orders",
                 data: amounts,
-                backgroundColor: "rgba(75, 192, 192)",
-                borderColor: "rgba(75, 192, 192, 1)",
+                backgroundColor: "orange",
+                borderColor: "black",
                 borderWidth: 1,
                 hoverBackgroundColor: "pink",
               },
@@ -74,9 +88,22 @@ export default function AdminPage() {
         ></Bar>
       </div>
       <div>
-        <Link href={"/admin/products"}>Productos</Link>
-        <Link href={"/admin/users"}>Usuarios</Link>
-        <Link href={"/admin/orders"}>Ordenes</Link>
+        <h2>Products:</h2>
+        <Bar
+          data={{
+            labels: products.map((item) => item.category),
+            datasets: [
+              {
+                label: "Products",
+                backgroundColor: "orange",
+                borderColor: "black",
+                borderWidth: 1,
+                data: products.map((item) => item.cantidad),
+                hoverBackgroundColor: "pink",
+              },
+            ],
+          }}
+        ></Bar>
       </div>
     </main>
   );
