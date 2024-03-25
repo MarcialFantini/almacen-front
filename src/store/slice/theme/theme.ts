@@ -13,9 +13,12 @@ const themeSlice = createSlice({
     toggleTheme: (state) => {
       state.isActive = !state.isActive;
     },
+    resetTheme: (state) => {
+      state.isActive = false;
+    },
   },
 });
 
-export const {} = themeSlice.actions;
+export const { toggleTheme, resetTheme } = themeSlice.actions;
 
 export const themeReducer = themeSlice.reducer;

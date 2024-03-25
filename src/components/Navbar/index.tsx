@@ -10,17 +10,18 @@ import srcCar from "../../../public/images/navbar/carrito-de-compras.png";
 import srcProducts from "../../../public/images/navbar/proveedor.png";
 import srcAdmin from "../../../public/images/navbar/apoyo.png";
 import srcHamburger from "../../../public/images/navbar/menu.png";
+import { resetTheme, toggleTheme } from "@/store/slice/theme/theme";
 
 export const Navbar = () => {
   const [clientIsLogin, setClientIsLogin] = useState(false);
   const [clientIsAdmin, setClientIsAdmin] = useState(false);
-  const [activeNavbar, setActiveNavbar] = useState(false);
+  const activeNav = useAppSelector((state) => state.themeReducer.isActive);
   const isLogin = useAppSelector((state) => state.LoginReducer.isLogin);
   const isAdmin = useAppSelector((state) => state.LoginReducer.isAdmin);
   const dispatch = useAppDispatch();
 
-  const handlerToggleNav = () => setActiveNavbar(!activeNavbar);
-  const closeNav = () => setActiveNavbar(false);
+  const handlerToggleNav = () => dispatch(toggleTheme());
+  const closeNav = () => dispatch(resetTheme());
   const handlerExitToClit = () => {
     dispatch(removeLogin());
   };
@@ -46,7 +47,7 @@ export const Navbar = () => {
           " " +
           styled.navbarMobile +
           " " +
-          (activeNavbar ? styled.active : "")
+          (!activeNav ? styled.active : "")
         }
       >
         <ul className={styled.nav + " " + styled.rowColumn}>

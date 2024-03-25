@@ -2,7 +2,7 @@
   display: grid;
   max-width: 1200px;
   margin: auto;
-  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
   width: 100%;
   min-height: 100vh;
   gap: 20px;
@@ -15,7 +15,12 @@
 }
 
 .containerRow {
+  width: 70%;
+  margin: auto;
   display: grid;
   align-items: center;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+}
+
+.containerSmall {
+  width: 90%;
 }

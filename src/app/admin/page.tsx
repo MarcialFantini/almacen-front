@@ -59,7 +59,7 @@ export default function AdminPage() {
         <Link href={"/admin/orders"}>Ordenes</Link>
       </div>
 
-      <div>
+      <div className={styled.containerSmall}>
         <h2>Ordenes:</h2>
         <Bar
           options={{
@@ -87,7 +87,7 @@ export default function AdminPage() {
           }}
         ></Bar>
       </div>
-      <div>
+      <div className={styled.containerSmall}>
         <h2>Products:</h2>
         <Bar
           data={{

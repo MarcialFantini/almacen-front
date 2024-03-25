@@ -34,7 +34,7 @@ export const SectionProductsHome = () => {
           </li>
           <li
             onClick={() => {
-              setCategoryProducts("mens");
+              setCategoryProducts("men");
             }}
           >
             Hombre
