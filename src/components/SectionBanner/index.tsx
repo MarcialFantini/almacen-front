@@ -1,9 +1,12 @@
 import { Banner, BannerInterface } from "../Banner";
-import srcDefault from "../../../public/images/home/main-image.jpg";
+import srcDefaultWomen from "../../../public/images/home/women-category.jpg";
+import srcDefaultMen from "../../../public/images/home/men-category.jpg";
+import srcDefaultChildren from "../../../public/images/home/children-category.jpg";
+
 const banners: BannerInterface[] = [
-  { title: "Coleccion de verano", src: srcDefault, category: "maquillaje" },
-  { title: "Coleccion de verano", src: srcDefault, category: "maquillaje" },
-  { title: "Coleccion de verano", src: srcDefault, category: "maquillaje" },
+  { title: "Mujeres", src: srcDefaultWomen, category: "women" },
+  { title: "Hombres ", src: srcDefaultMen, category: "men" },
+  { title: "Niños ", src: srcDefaultChildren, category: "children" },
 ];
 
 export const SectionBanner = () => {

@@ -1,6 +1,7 @@
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import Image from "next/image";
 import styled from "./styled.module.css";
+import Link from "next/link";
 
 export interface BannerInterface {
   src: string | StaticImport;
@@ -16,9 +17,10 @@ export const Banner = ({ src, title, category }: BannerInterface) => {
       </picture>
       <div className={styled.filter}></div>
       <div className={styled.containerBanner}>
-        <p className={styled.subtitle}>{category}</p>
         <h2 className={styled.title}>{title}</h2>
-        <button className={styled.btn}>Ver mas</button>
+        <Link href={"/products"}>
+          <button className={styled.btn}>Ver mas</button>
+        </Link>
       </div>
     </article>
   );

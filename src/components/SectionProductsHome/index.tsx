@@ -5,7 +5,7 @@ import styled from "./styled.module.css";
 import { useEffect } from "react";
 import { setProductsHome } from "@/store/slice/products/actions";
 import Link from "next/link";
-const arr = [0, 0, 0, 0, 0, 0, 0, 0];
+const arr = [0, 0, 0, 0, 0, 0];
 
 export const SectionProductsHome = () => {
   const products = useAppSelector((state) => state.productReducer.homeProducts);
@@ -16,7 +16,7 @@ export const SectionProductsHome = () => {
 
   useEffect(() => {
     if (products.length === 0) {
-      dispatch(setProductsHome({ page: 0, offset: 8 }));
+      dispatch(setProductsHome({ page: 0, offset: 6 }));
     }
   }, [products]);
 

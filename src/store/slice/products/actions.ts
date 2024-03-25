@@ -64,16 +64,17 @@ export const setProductsAdmin = createAsyncThunk(
   "getPrducts/admin",
   async ({ page, offset }: { page: number; offset: number }, thunkApi) => {
     try {
-      const responseData = (await instanceAxios.get(
-        `products/page/${page}/offset/${offset}`
-      )) as AxiosResponse<ResponseManyProducts, any>;
+      const responseData = await fetch(
+        `http://localhost:5000/api/v1/products/page/${page}/offset/${offset}`,
+        { cache: "no-cache" }
+      );
 
-      console.log(responseData.data.data.length);
+      const data = await responseData.json();
 
       if (responseData.status !== 200) {
         return thunkApi.rejectWithValue([]);
       }
-      return responseData.data.data;
+      return data.data;
     } catch (error) {
       return thunkApi.rejectWithValue(error);
     }
@@ -175,8 +176,8 @@ export const createProductAdmin = createAsyncThunk(
           cache: "no-cache",
         }
       );
-
-      if (response.status !== 201) {
+      const data = await response.json();
+      if (data.code !== 201) {
         return thunkApi.rejectWithValue("error to created product 201");
       }
 

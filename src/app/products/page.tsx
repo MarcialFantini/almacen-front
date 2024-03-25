@@ -41,7 +41,7 @@ export default function ProductsGallery() {
           </form>
           <ul className={styled.sectionCategoryList}>
             <li>
-              <button onClick={handlerSetCategory("mens")}>mens</button>
+              <button onClick={handlerSetCategory("men")}>mens</button>
             </li>
             <li>
               <button onClick={handlerSetCategory("women")}>women</button>

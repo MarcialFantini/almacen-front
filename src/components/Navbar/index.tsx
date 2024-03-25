@@ -31,7 +31,7 @@ export const Navbar = () => {
       <nav className={styled.navbar}>
         <ul className={styled.nav}>
           <li>
-            <Link href={"/products"}>Products</Link>
+            <Link href={"/products"}>Productos</Link>
           </li>
           <li>
             <Link href={"/car"}>Car</Link>

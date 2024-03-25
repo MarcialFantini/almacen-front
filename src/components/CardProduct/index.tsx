@@ -5,6 +5,8 @@ import srcWomanDefault from "../../../public/images/home/woman-1840538_640.jpg";
 import { Product } from "@/store/slice/products/product";
 import { useState } from "react";
 import Link from "next/link";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { addOneProduct, addProduct } from "@/store/slice/car/car";
 
 interface props {
   product: Product;
@@ -12,8 +14,20 @@ interface props {
 
 export const CardProduct = ({ product }: props) => {
   const [isLoad, setIsLoad] = useState(false);
-
+  const products = useAppSelector((state) => state.CarReducer.products);
+  const dispatch = useAppDispatch();
   const handlerLoad = () => setIsLoad(true);
+  const handlerAddProduct = () =>
+    dispatch(addProduct({ ...product, amount: 1 }));
+  const handlerAddOneProduct = () => dispatch(addOneProduct(product.id));
+
+  const handlerMix = () => {
+    const id = products.findIndex((pro) => pro.id === product.id);
+    if (id === -1) {
+      return handlerAddProduct();
+    }
+    return handlerAddOneProduct();
+  };
 
   return (
     <article className={styled.containerProduct}>
@@ -38,7 +52,9 @@ export const CardProduct = ({ product }: props) => {
           <Link style={{ width: "100%" }} href={`/products/one/${product.id}`}>
             <button className={styled.btn}>Ver mas</button>
           </Link>
-          <button className={styled.btn}>Comprar</button>
+          <button onClick={handlerMix} className={styled.btn}>
+            Comprar
+          </button>
         </div>
         <p className={styled.text}>$ {product.price}</p>
       </div>

@@ -55,8 +55,8 @@ export const loginSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(createUserActionThunk.fulfilled, (state, action) => {
-      state.token = action.payload.data.token;
-      state.isAdmin = action.payload.data.isAdmin;
+      state.token = action.payload.token;
+      state.isAdmin = action.payload.isAdmin;
       state.isLogin = true;
 
       const expirationDate = new Date();
@@ -64,7 +64,7 @@ export const loginSlice = createSlice({
       const expirationDateString = expirationDate.toUTCString();
       const cookieString =
         "jwtToken=" +
-        action.payload.data.token +
+        action.payload.token +
         "; expires=" +
         expirationDateString +
         "; path=/";

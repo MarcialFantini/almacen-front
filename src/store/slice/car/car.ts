@@ -1,16 +1,29 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { crearOrdenThunk } from "./action";
+
+export enum OrdersStatus {
+  pending = "pending",
+  complete = "complete",
+  inert = "inert",
+}
 
 interface ProductCar {
   products: Product[];
+  clientSecret: string | null;
+  ordersSendStatus: OrdersStatus;
 }
 
 interface Product {
   id: string;
   amount: number;
+  price: number;
+  name: string;
 }
 
 const initialState: ProductCar = {
   products: [],
+  clientSecret: null,
+  ordersSendStatus: OrdersStatus.inert,
 };
 
 export const CarSlice = createSlice({
@@ -18,19 +31,25 @@ export const CarSlice = createSlice({
   initialState,
   reducers: {
     addProduct: (state, action: PayloadAction<Product>) => {
-      state.products = [...state.products, action.payload];
+      const newProduct: Product = { ...action.payload };
+      const idProduct = state.products.findIndex(
+        (state) => state.id === action.payload.id
+      );
+
+      if (idProduct !== -1) {
+        state.products[idProduct].amount = state.products[idProduct].amount + 1;
+      } else {
+        newProduct.amount = 1;
+        state.products = [...state.products, newProduct];
+      }
     },
 
     addOneProduct: (state, action: PayloadAction<string>) => {
-      const productSelected = state.products.map((product) => {
-        if (product.id === action.payload) {
-          const updateProduct = { id: product.id, amount: product.amount + 1 };
-          return updateProduct;
-        }
-        return { ...product };
-      });
+      const index = state.products.findIndex(
+        (product) => product.id === action.payload
+      );
 
-      state.products = productSelected;
+      state.products[index].amount = state.products[index].amount + 1;
     },
     delProduct: (state, action: PayloadAction<string>) => {
       state.products = state.products.filter(
@@ -44,10 +63,30 @@ export const CarSlice = createSlice({
 
       state.products[productSelected] = { ...action.payload };
     },
+
+    resetCar: (state, action: PayloadAction<OrdersStatus>) => {
+      state.products = [];
+      state.ordersSendStatus = action.payload;
+      state.clientSecret = null;
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(crearOrdenThunk.fulfilled, (state, action) => {
+      state.ordersSendStatus = OrdersStatus.complete;
+      state.clientSecret = action.payload;
+    });
+    builder.addCase(crearOrdenThunk.pending, (state, action) => {
+      state.ordersSendStatus = OrdersStatus.pending;
+    });
   },
 });
 
-export const { addOneProduct, addProduct, updateProduct, delProduct } =
-  CarSlice.actions;
+export const {
+  addOneProduct,
+  addProduct,
+  updateProduct,
+  delProduct,
+  resetCar,
+} = CarSlice.actions;
 
 export const CarReducer = CarSlice.reducer;

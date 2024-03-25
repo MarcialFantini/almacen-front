@@ -36,18 +36,23 @@ export const createUserActionThunk = createAsyncThunk(
   "createUser/fetchLogin",
   async (body: UserInterface, thunkApi) => {
     try {
-      const response = (await instanceAxios.post(
-        "/users/create",
-        body
-      )) as AxiosResponse<UserCreateResponse>;
-
-      console.log(response);
+      const response = await fetch(
+        "http://localhost:5000/api/v1/users/create",
+        {
+          body: await JSON.stringify(body),
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const data = await response.json();
 
       if (response.status !== 201) {
         return thunkApi.rejectWithValue("error to create user");
       }
 
-      return response.data;
+      return data.data;
     } catch (error) {
       return thunkApi.rejectWithValue(error);
     }
