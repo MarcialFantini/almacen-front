@@ -2,6 +2,15 @@
 import styled from "./styled.module.css";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { OrdersDeleteThunk, OrdersGetThunk } from "@/store/slice/orders/action";
+import {
+  Button,
+  Table,
+  TableBody,
+  TableCell,
+  TableColumn,
+  TableHeader,
+  TableRow,
+} from "@nextui-org/react";
 
 import { useEffect } from "react";
 
@@ -26,36 +35,36 @@ export default function OrdersPage() {
 
   return (
     <div className={styled.view}>
-      <table>
-        <thead>
-          <tr>
-            <th>Usuario</th>
-            <th>Producto</th>
-            <th>Precio</th>
-            <th>Email</th>
-            <th>Cantidad</th>
-            <th>Total</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
+      <Table className="dark">
+        <TableHeader>
+          <TableColumn>Usuario</TableColumn>
+          <TableColumn>Producto</TableColumn>
+          <TableColumn>Precio</TableColumn>
+          <TableColumn>Email</TableColumn>
+          <TableColumn>Cantidad</TableColumn>
+          <TableColumn>Total</TableColumn>
+          <TableColumn>Acciones</TableColumn>
+        </TableHeader>
+        <TableBody>
           {orders.map((state) => {
             return (
-              <tr key={state.id}>
-                <td>{state.User.name}</td>
-                <td>{state.Product.name}</td>
-                <td>{state.Product.price}</td>
-                <td>{state.User.email}</td>
-                <td>{state.amount}</td>
-                <td>${state.amount * state.Product.price}</td>
-                <td className={styled.row}>
-                  <button onClick={handlerOrderDelete(state.id)}>Borrar</button>
-                </td>
-              </tr>
+              <TableRow key={state.id}>
+                <TableCell>{state.User.name}</TableCell>
+                <TableCell>{state.Product.name}</TableCell>
+                <TableCell>{state.Product.price}</TableCell>
+                <TableCell>{state.User.email}</TableCell>
+                <TableCell>{state.amount}</TableCell>
+                <TableCell>${state.amount * state.Product.price}</TableCell>
+                <TableCell className={styled.row}>
+                  <Button color="danger" onClick={handlerOrderDelete(state.id)}>
+                    Borrar
+                  </Button>
+                </TableCell>
+              </TableRow>
             );
           })}
-        </tbody>
-      </table>
+        </TableBody>
+      </Table>
     </div>
   );
 }

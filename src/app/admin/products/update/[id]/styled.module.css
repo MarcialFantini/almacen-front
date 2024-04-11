@@ -8,3 +8,16 @@
 .btn {
   width: 100%;
 }
+
+.formUpdate {
+  gap: 1rem;
+}
+
+.formUpdate label {
+  display: flex;
+  flex-direction: column;
+}
+
+.formUpdate label input {
+  padding: 8px;
+}

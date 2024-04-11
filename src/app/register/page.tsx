@@ -1,10 +1,7 @@
 "use client";
 import Link from "next/link";
-import styled from "./styled.module.css";
-import Image from "next/image";
-import srcImageBack from "../../../public/images/register/register.jpg";
-import { IsLoad } from "@/hooks/isLoad";
-import { ChangeEvent, FormEvent, Suspense, useEffect, useState } from "react";
+
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import {
@@ -12,6 +9,7 @@ import {
   createUserActionThunk,
 } from "@/store/slice/login/actions";
 import { useRouter } from "next/navigation";
+import { Button, Input } from "@nextui-org/react";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -29,7 +27,6 @@ export default function RegisterPage() {
 
   const handlerCreateUser = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(form);
     dispatch(createUserActionThunk(form));
   };
 
@@ -41,36 +38,43 @@ export default function RegisterPage() {
     }
   }, [token]);
   return (
-    <main className={styled.containerView}>
-      <form onSubmit={handlerCreateUser} className={styled.form}>
+    <main>
+      <form
+        className=" flex flex-col gap-4 text-2xl w-[95%] m-auto p-4"
+        onSubmit={handlerCreateUser}
+      >
         <label>
           Nombre:
-          <input onChange={handlerForm} type="text" name="name" />
+          <Input required onChange={handlerForm} type="text" name="name" />
         </label>
         <label>
           Apellido:
-          <input onChange={handlerForm} type="text" name="lastName" />
+          <Input required onChange={handlerForm} type="text" name="lastName" />
         </label>
         <label>
           Email:
-          <input onChange={handlerForm} type="email" name="email" />
+          <Input required onChange={handlerForm} type="email" name="email" />
         </label>
         <label>
           Contraseña:
-          <input onChange={handlerForm} type="password" name="password" />
+          <Input
+            required
+            onChange={handlerForm}
+            type="password"
+            name="password"
+          />
         </label>
-        <button className={styled.btn} type="submit">
+        <Button color="primary" type="submit">
           Registrar
-        </button>
-        <button style={{ width: "100%" }}>
-          <Link
-            style={{ color: "white", textDecoration: "none" }}
-            className={styled.btn}
-            href={"/login"}
-          >
-            Iniciar Sesión
-          </Link>
-        </button>
+        </Button>
+        <Button
+          color="warning"
+          href="/login"
+          as={Link}
+          style={{ width: "100%" }}
+        >
+          Iniciar Sesión
+        </Button>
       </form>
     </main>
   );

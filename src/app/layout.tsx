@@ -1,8 +1,10 @@
 "use client";
 
-import { Navbar } from "@/components/Navbar";
 import "./globals.css";
 import { WrapperStore } from "@/components/WrapperStore";
+import { Providers } from "./providers";
+import { Footer } from "@/components/Footer";
+import { NavbarComponent } from "@/components/Navbar";
 
 export default function RootLayout({
   children,
@@ -11,11 +13,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
+      <body className="min-h-[100vh]">
         <WrapperStore>
-          <Navbar></Navbar>
-          {children}
+          <Providers>
+            <NavbarComponent></NavbarComponent>
+            {children}
+          </Providers>
         </WrapperStore>
+        <Footer></Footer>
       </body>
     </html>
   );

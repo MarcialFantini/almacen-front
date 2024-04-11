@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import styled from "./styled.module.css";
-import srcWomanDefault from "../../../public/images/home/woman-1840538_640.jpg";
+import srcWomanDefault from "../../../public/images/home/webp/main-image.webp";
 import { Product } from "@/store/slice/products/product";
 import { useState } from "react";
 import Link from "next/link";

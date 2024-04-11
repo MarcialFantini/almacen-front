@@ -1,13 +1,10 @@
 "use client";
 import Link from "next/link";
-import styled from "./styled.module.css";
-import Image from "next/image";
-import srcImageBack from "../../../public/images/register/register.jpg";
 import { ChangeEvent, FormEvent, Suspense, useEffect, useState } from "react";
-import { IsLoad } from "@/hooks/isLoad";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { loginUserToken } from "@/store/slice/login/actions";
 import { useRouter } from "next/navigation";
+import { Button, Input } from "@nextui-org/react";
 
 export default function LoginPage() {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -30,11 +27,14 @@ export default function LoginPage() {
   }, [token]);
 
   return (
-    <div className={styled.containerView}>
-      <form onSubmit={handlerCreateUser} className={styled.form}>
+    <div className=" min-h-[400px] flex justify-center items-center w-full">
+      <form
+        className="  w-[95%] max-w-[600px] flex flex-col gap-2"
+        onSubmit={handlerCreateUser}
+      >
         <label>
           Email:
-          <input
+          <Input
             value={form.email}
             onChange={handlerSetForm}
             type="email"
@@ -43,21 +43,19 @@ export default function LoginPage() {
         </label>
         <label>
           Contraseña:
-          <input
+          <Input
             value={form.password}
             onChange={handlerSetForm}
             type="password"
             name="password"
           />
         </label>
-        <button className={styled.btn} type="submit">
+        <Button color="primary" type="submit">
           Login
-        </button>
-        <button style={{ width: "100%" }}>
-          <Link className={styled.btn} href={"/register"}>
-            Register
-          </Link>
-        </button>
+        </Button>
+        <Button variant="ghost" color="warning" href={"/register"} as={Link}>
+          Register
+        </Button>
       </form>
     </div>
   );

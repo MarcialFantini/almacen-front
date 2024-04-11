@@ -1,14 +1,15 @@
-import styles from "./page.module.css";
+import { Beautiful } from "@/components/Beautiful";
+import { OurProductsHome } from "@/components/OurProductsHome";
 import { SectionPrincipal } from "@/components/SectionPrincipal";
 import { SectionProductsHome } from "@/components/SectionProductsHome";
-import { SectionBanner } from "@/components/SectionBanner";
 
 export default function Home() {
   return (
-    <main className={styles.main}>
+    <main className=" w-full">
       <SectionPrincipal></SectionPrincipal>
       <SectionProductsHome></SectionProductsHome>
-      <SectionBanner></SectionBanner>
+      <OurProductsHome></OurProductsHome>
+      <Beautiful></Beautiful>
     </main>
   );
 }

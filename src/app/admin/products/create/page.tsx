@@ -4,6 +4,9 @@ import styled from "./styled.module.css";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { createProductAdmin } from "@/store/slice/products/actions";
 import { resetFlags } from "@/store/slice/products/product";
+import { Button, Input, Select, SelectItem } from "@nextui-org/react";
+
+const categories = ["men", "women", "children"];
 
 export default function CreateProductPage() {
   const [form, setForm] = useState({
@@ -20,8 +23,9 @@ export default function CreateProductPage() {
   const stateColor = useAppSelector(
     (state) => state.productReducer.eventResponse
   );
-  const handlerForm = (event: ChangeEvent<HTMLInputElement>) =>
-    setForm({ ...form, [event.target.name]: event.target.value });
+  const handlerForm = (
+    event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>
+  ) => setForm({ ...form, [event.target.name]: event.target.value });
 
   const handlerImageChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
@@ -49,10 +53,14 @@ export default function CreateProductPage() {
 
   return (
     <div className={styled.view}>
-      <form onSubmit={handlerCreateProduct}>
+      <form
+        className={styled.form + " flex flex-col"}
+        onSubmit={handlerCreateProduct}
+      >
         <label>
           Nombre Producto:
           <input
+            className={styled.input}
             placeholder="nombre de producto"
             onChange={handlerForm}
             type="text"
@@ -63,6 +71,7 @@ export default function CreateProductPage() {
         <label>
           Cantidad del Producto:
           <input
+            className={styled.input}
             placeholder="cantidad de producto"
             onChange={handlerForm}
             type="number"
@@ -73,6 +82,7 @@ export default function CreateProductPage() {
         <label>
           Precio de Producto:
           <input
+            className={styled.input}
             placeholder="Precio de producto"
             onChange={handlerForm}
             type="number"
@@ -83,24 +93,24 @@ export default function CreateProductPage() {
 
         <label>
           Categoría:
-          <input
+          <Select
             placeholder="Categoría de producto"
             onChange={handlerForm}
-            type="text"
             name="category"
-            value={form.category}
-          />
+            children={categories.map((item) => (
+              <SelectItem key={item}>{item}</SelectItem>
+            ))}
+          ></Select>
         </label>
 
         <label>
           Imagen del producto:
-          <input onChange={handlerImageChange} type="file" multiple />
+          <Input onChange={handlerImageChange} type="file" multiple />
         </label>
 
-        <button className={styled.btn}>Crear producto</button>
-        <div style={{ background: color }} className={styled.state}>
-          <p>state</p>
-        </div>
+        <Button color="primary" type="submit" className="my-4">
+          Crear producto
+        </Button>
       </form>
     </div>
   );

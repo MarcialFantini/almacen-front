@@ -5,6 +5,7 @@ import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { ProductUpdate } from "@/store/slice/products/actions";
 import { Colors } from "@/utils/enums";
 import { resetFlags } from "@/store/slice/products/product";
+import { Button, Input } from "@nextui-org/react";
 
 export interface ResponseProduct {
   data: Product;
@@ -70,8 +71,11 @@ export default function UpdatePage({ params }: { params: { id: string } }) {
   }, [color]);
 
   return (
-    <div className={styled.containerView}>
-      <form onSubmit={handlerUpdateForm}>
+    <div className={"flex w-[95%] max-w-[600px] m-auto"}>
+      <form
+        className={styled.formUpdate + " flex flex-col w-full gap-2 my-4"}
+        onSubmit={handlerUpdateForm}
+      >
         <label>
           Nombre del producto:
           <input
@@ -99,7 +103,9 @@ export default function UpdatePage({ params }: { params: { id: string } }) {
             name="price"
           />
         </label>
-        <button className={styled.btn}>Actualizar</button>
+        <Button color="primary" className={"bg-black"}>
+          Actualizar
+        </Button>
         <div
           style={{
             background: color,

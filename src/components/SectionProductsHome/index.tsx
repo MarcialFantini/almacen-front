@@ -1,87 +1,34 @@
-"use client";
-import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { CardProduct } from "../CardProduct";
-import styled from "./styled.module.css";
-import { useEffect } from "react";
-import { setProductsHome } from "@/store/slice/products/actions";
 import Link from "next/link";
-const arr = [0, 0, 0, 0, 0, 0];
+
+import { arrCategories } from "./categories";
+import Image from "next/image";
 
 export const SectionProductsHome = () => {
-  const products = useAppSelector((state) => state.productReducer.homeProducts);
-
-  const dispatch = useAppDispatch();
-  const setCategoryProducts = (category: string) =>
-    dispatch(setProductsHome({ page: 0, offset: 8, category: category }));
-
-  useEffect(() => {
-    if (products.length === 0) {
-      dispatch(setProductsHome({ page: 0, offset: 6 }));
-    }
-  }, [products]);
-
   return (
-    <section className={styled.containerSection}>
-      <header>
-        <h2 className={styled.title}>Nueva colección </h2>
-        <ul className={styled.list}>
-          <li
-            onClick={() => {
-              setCategoryProducts("women");
-            }}
-          >
-            Mujer
-          </li>
-          <li
-            onClick={() => {
-              setCategoryProducts("men");
-            }}
-          >
-            Hombre
-          </li>
-          <li
-            onClick={() => {
-              setCategoryProducts("children");
-            }}
-          >
-            Niños
-          </li>
-          <li
-            onClick={() => {
-              dispatch(setProductsHome({ page: 0, offset: 8 }));
-            }}
-          >
-            Total look
-          </li>
-        </ul>
+    <section className="flex flex-col gap-4 w-[95%] m-auto my-4 max-w-[1050px]">
+      <header className="flex flex-col items-center">
+        <h2 className=" text-4xl">Browse The Range</h2>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
       </header>
-      <main className={styled.containerSectionProducts}>
-        {products.length > 0
-          ? products.map((product) => {
-              return (
-                <CardProduct key={product.id} product={product}></CardProduct>
-              );
-            })
-          : arr.map((product, index) => {
-              return (
-                <CardProduct
-                  key={index}
-                  product={{
-                    id: String(index),
-                    name: "",
-                    ProductImages: [],
-                    amount: 0,
-                    price: 0,
-                  }}
-                ></CardProduct>
-              );
-            })}
-      </main>
-      <footer className={styled.containerFooter}>
-        <Link href={"/products"}>
-          <button className={styled.btn}>Ver mas</button>
-        </Link>
-      </footer>
+      <div
+        style={{ gridTemplateColumns: "repeat(auto-fit,minmax(300px,1fr))" }}
+        className="grid gap-4 "
+      >
+        {arrCategories.map((item) => {
+          return (
+            <article className=" flex flex-col gap-4" key={item.title}>
+              <picture className="flex w-full h-full aspect-[3/4] overflow-hidden rounded-lg">
+                <Image
+                  className="w-full h-full object-cover"
+                  src={item.img}
+                  alt={`image of ${item.title}`}
+                ></Image>
+              </picture>
+              <h4 className=" text-center">{item.title}</h4>
+            </article>
+          );
+        })}
+      </div>
     </section>
   );
 };

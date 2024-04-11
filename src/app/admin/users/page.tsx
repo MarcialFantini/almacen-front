@@ -4,6 +4,15 @@ import styled from "./styled.module.css";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { deleteUserAdmin, setUsersAdmin } from "@/store/slice/users/action";
 import Link from "next/link";
+import {
+  Button,
+  Table,
+  TableBody,
+  TableCell,
+  TableColumn,
+  TableHeader,
+  TableRow,
+} from "@nextui-org/react";
 export default function UsersPage() {
   const dispatch = useAppDispatch();
   const token = useAppSelector((state) => state.LoginReducer.token);
@@ -20,38 +29,45 @@ export default function UsersPage() {
   }, []);
 
   return (
-    <section className={styled.view}>
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Apellido</th>
-            <th>Role</th>
-            <th>Email</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
+    <section className={styled.view+" text-white"}>
+      <Table color="primary" className="dark">
+        <TableHeader>
+          <TableColumn>ID</TableColumn>
+          <TableColumn>Nombre</TableColumn>
+          <TableColumn>Apellido</TableColumn>
+          <TableColumn>Role</TableColumn>
+          <TableColumn>Email</TableColumn>
+          <TableColumn>Action</TableColumn>
+        </TableHeader>
+        <TableBody>
           {users.map((state) => {
             return (
-              <tr>
-                <td>{state.id}</td>
-                <td>{state.name}</td>
-                <td>{state.lastName}</td>
-                <td>{state.role}</td>
-                <td>{state.email}</td>
-                <td className={styled.row}>
-                  <button>
-                    <Link href={"/admin/users/update/" + state.id}>Update</Link>
-                  </button>
-                  <button onClick={handlerDelete(state.id, token)}>Del</button>
-                </td>
-              </tr>
+              <TableRow>
+                <TableCell>{state.id}</TableCell>
+                <TableCell>{state.name}</TableCell>
+                <TableCell>{state.lastName}</TableCell>
+                <TableCell>{state.role}</TableCell>
+                <TableCell>{state.email}</TableCell>
+                <TableCell className={styled.row}>
+                  <Button
+                    color="secondary"
+                    href={"/admin/users/update/" + state.id}
+                    as={Link}
+                  >
+                    Update
+                  </Button>
+                  <Button
+                    color="danger"
+                    onClick={handlerDelete(state.id, token)}
+                  >
+                    Del
+                  </Button>
+                </TableCell>
+              </TableRow>
             );
           })}
-        </tbody>
-      </table>
+        </TableBody>
+      </Table>
     </section>
   );
 }

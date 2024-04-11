@@ -48,7 +48,6 @@ export const loginSlice = createSlice({
   initialState,
   reducers: {
     removeLogin: (state) => {
-      console.log(state.token);
       delCookie("jwtToken");
       return (state = { token: null, isAdmin: false, isLogin: false });
     },

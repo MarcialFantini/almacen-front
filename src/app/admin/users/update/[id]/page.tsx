@@ -8,6 +8,7 @@ import {
 } from "@/store/slice/users/action";
 
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { Button } from "@nextui-org/react";
 
 export default function UpdatePage({ params }: { params: { id: string } }) {
   const [form, setForm] = useState<updateUserInterface>({
@@ -44,7 +45,7 @@ export default function UpdatePage({ params }: { params: { id: string } }) {
 
   return (
     <div className={styled.view}>
-      <form onSubmit={handlerSendForm}>
+      <form className={styled.form} onSubmit={handlerSendForm}>
         <label>
           Nombre:
           <input
@@ -81,9 +82,9 @@ export default function UpdatePage({ params }: { params: { id: string } }) {
             type="text"
           />
         </label>
-        <button type="submit" className={styled.btn}>
+        <Button className=" w-full my-4" color="primary" type="submit">
           Actualizar
-        </button>
+        </Button>
       </form>
     </div>
   );

@@ -3,10 +3,18 @@ import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import styled from "./styled.module.css";
 import Link from "next/link";
 import { DeleteProduct } from "@/store/slice/products/actions";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableColumn,
+  TableHeader,
+  TableRow,
+} from "@nextui-org/react";
 
 export const TableProducts = () => {
   const products = useAppSelector(
-    (state) => state.productReducer.adminProducts
+    (state) => state.productReducer.adminProducts,
   );
 
   const dispatch = useAppDispatch();
@@ -16,23 +24,21 @@ export const TableProducts = () => {
     dispatch(DeleteProduct({ id, token: token || "" }));
 
   return (
-    <table className={styled.table}>
-      <thead>
-        <tr className={styled.rowTop}>
-          <th>name</th>
-          <th>amount</th>
-          <th>price</th>
-          <th>actions</th>
-        </tr>
-      </thead>
-      <tbody className={styled.tbody}>
+    <Table color="primary" className={"dark "}>
+      <TableHeader>
+        <TableColumn>name</TableColumn>
+        <TableColumn>amount</TableColumn>
+        <TableColumn>price</TableColumn>
+        <TableColumn>actions</TableColumn>
+      </TableHeader>
+      <TableBody className={styled.tbody}>
         {products.map((product) => {
           return (
-            <tr key={product.id} className={styled.rowBody}>
-              <td>{product.name}</td>
-              <td>{product.amount}</td>
-              <td>{product.price}</td>
-              <td className={styled.actions}>
+            <TableRow key={product.id} className={styled.rowBody}>
+              <TableCell>{product.name}</TableCell>
+              <TableCell>{product.amount}</TableCell>
+              <TableCell>{product.price}</TableCell>
+              <TableCell className={styled.actions}>
                 <Link
                   style={{ color: "inherit" }}
                   href={"/admin/products/update/" + product.id}
@@ -43,11 +49,11 @@ export const TableProducts = () => {
                 <button onClick={() => handlerDeleteProduct(product.id)}>
                   del
                 </button>
-              </td>
-            </tr>
+              </TableCell>
+            </TableRow>
           );
         })}
-      </tbody>
-    </table>
+      </TableBody>
+    </Table>
   );
 };

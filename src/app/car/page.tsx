@@ -1,11 +1,10 @@
 "use client";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import styled from "./styled.module.css";
-import { OrdersStatus, delProduct, resetCar } from "@/store/slice/car/car";
-import Link from "next/link";
+
+import { delProduct } from "@/store/slice/car/car";
+
 import {
   CreateOrderInterface,
-  OrderOne,
   crearOrdenThunk,
 } from "@/store/slice/car/action";
 import { useRouter } from "next/navigation";
@@ -17,9 +16,19 @@ import {
   StripeElementsOptions,
 } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
+import {
+  Button,
+  Link,
+  Table,
+  TableBody,
+  TableCell,
+  TableColumn,
+  TableHeader,
+  TableRow,
+} from "@nextui-org/react";
 
 const stripePromise = loadStripe(
-  "pk_test_51OvhpuDEoN0AcwY7mfOK6BQ1xkRTohyxNBaqjrVWlkLtkEfMrlFcSIOHkMQ6lyHAyAv1g7VRATL0ynaOcLxcuObg00ZUEsTlmP"
+  "pk_test_51OvhpuDEoN0AcwY7mfOK6BQ1xkRTohyxNBaqjrVWlkLtkEfMrlFcSIOHkMQ6lyHAyAv1g7VRATL0ynaOcLxcuObg00ZUEsTlmP",
 );
 
 export default function CarPage() {
@@ -57,49 +66,51 @@ export default function CarPage() {
     appearance,
   };
   return (
-    <section className={styled.view}>
+    <section className=" min-h-[400px]">
       <header>
-        <h2>Carrito de compras</h2>
+        <h2 className=" text-2xl text-center p-4">Carrito de compras</h2>
       </header>
-      <table>
-        <thead>
-          <tr>
-            <th>Nombre de Producto</th>
-            <th>Precio</th>
-            <th>Cantidad</th>
-            <th>Acción</th>
-          </tr>
-        </thead>
-        <tbody>
-          {productsCar.map((product) => {
+      <Table>
+        <TableHeader>
+          <TableColumn>Nombre de Producto</TableColumn>
+          <TableColumn>Precio</TableColumn>
+          <TableColumn>Cantidad</TableColumn>
+          <TableColumn>Acción</TableColumn>
+        </TableHeader>
+        <TableBody>
+          {productsCar.map((product, index) => {
             return (
-              <tr>
-                <td>{product.name}</td>
-                <td>{product.price}</td>
-                <td>{product.amount}</td>
-                <td>
-                  <button onClick={handlerDelProductCar(product.id)}>
+              <TableRow key={index + product.name}>
+                <TableCell>{product.name}</TableCell>
+                <TableCell>{product.price}</TableCell>
+                <TableCell>{product.amount}</TableCell>
+                <TableCell>
+                  <Button onClick={handlerDelProductCar(product.id)}>
                     Borrar
-                  </button>
-                </td>
-              </tr>
+                  </Button>
+                </TableCell>
+              </TableRow>
             );
           })}
-        </tbody>
-      </table>
-      <div className={styled.containerGrid}>
-        <div className={styled.footer}>
-          Terminar la compra:
+        </TableBody>
+      </Table>
+      <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 ">
+          <h4>Terminar la compra:</h4>
           {productsCar.length > 0 ? (
             <button onClick={sendOrder}>Comprar</button>
           ) : (
             ""
           )}
-          <Link className={styled.btn} href={"/products"}>
-            <button className={styled.btn + " " + styled.btnDifferent}>
-              Seguir comprando
-            </button>
-          </Link>
+
+          <Button
+            color="secondary"
+            variant="shadow"
+            href={"/products"}
+            as={Link}
+          >
+            Seguir comprando
+          </Button>
         </div>
         {clientSecret && (
           <Elements options={options} stripe={stripePromise}>

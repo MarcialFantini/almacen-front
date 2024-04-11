@@ -16,6 +16,7 @@ import {
   LinearScale,
   TimeScale,
 } from "chart.js";
+import { Button } from "@nextui-org/react";
 Chart.register(CategoryScale, LinearScale, BarElement, TimeScale);
 
 type GroupedOrders = {
@@ -52,14 +53,20 @@ export default function AdminPage() {
     dispatch(getProductsCategoryCount(""));
   }, []);
   return (
-    <main className={styled.containerPage}>
-      <div className={styled.containerRow}>
-        <Link href={"/admin/products"}>Productos</Link>
-        <Link href={"/admin/users"}>Usuarios</Link>
-        <Link href={"/admin/orders"}>Ordenes</Link>
+    <main className={"flex flex-col gap-4 p-4 "}>
+      <div className="flex flex-col gap-2 content-center justify-center">
+        <Button color="primary" href={"/admin/products"} as={Link}>
+          Productos{" "}
+        </Button>
+        <Button color="secondary" as={Link} href={"/admin/users"}>
+          Usuarios
+        </Button>
+        <Button as={Link} color="danger" href="/admin/orders">
+          Ordenes
+        </Button>
       </div>
 
-      <div className={styled.containerSmall}>
+      <div className="flex w-full h-full flex-col gap-2 bg-red-50 p-4">
         <h2>Ordenes:</h2>
         <Bar
           options={{
@@ -87,7 +94,7 @@ export default function AdminPage() {
           }}
         ></Bar>
       </div>
-      <div className={styled.containerSmall}>
+      <div className="flex flex-col gap-2 bg-red-50 p-4">
         <h2>Products:</h2>
         <Bar
           data={{
