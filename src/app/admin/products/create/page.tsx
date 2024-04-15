@@ -1,28 +1,26 @@
 "use client";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import styled from "./styled.module.css";
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { createProductAdmin } from "@/store/slice/products/actions";
-import { resetFlags } from "@/store/slice/products/product";
+
 import { Button, Input, Select, SelectItem } from "@nextui-org/react";
 
-const categories = ["men", "women", "children"];
+const categories = ["Outdoor Furniture", "Interior Furniture"];
 
 export default function CreateProductPage() {
-  const [form, setForm] = useState({
+  const initialStateForm = {
     name: "",
     amount: 0,
     price: 0,
     category: "",
-  });
+  };
+  const [form, setForm] = useState(initialStateForm);
 
   const [files, setFiles] = useState<File[]>([]);
 
-  const [color, setColor] = useState("white");
   const token = useAppSelector((state) => state.LoginReducer.token);
-  const stateColor = useAppSelector(
-    (state) => state.productReducer.eventResponse
-  );
+
   const handlerForm = (
     event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>
   ) => setForm({ ...form, [event.target.name]: event.target.value });
@@ -32,24 +30,19 @@ export default function CreateProductPage() {
       const filesArray = Array.from(event.target.files);
       setFiles(filesArray);
     }
-    console.log(files);
   };
 
   const dispatch = useAppDispatch();
 
-  const handlerCreateProduct = (event: FormEvent<HTMLFormElement>) => {
+  const handlerCreateProduct = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    dispatch(
+    await dispatch(
       createProductAdmin({ body: form, token: token || "", images: files })
     );
-  };
 
-  useEffect(() => {
-    setColor(stateColor);
-    setTimeout(() => {
-      dispatch(resetFlags());
-    }, 500);
-  }, [stateColor]);
+    setForm(initialStateForm);
+    setFiles([]);
+  };
 
   return (
     <div className={styled.view}>

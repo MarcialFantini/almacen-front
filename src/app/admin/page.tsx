@@ -66,51 +66,53 @@ export default function AdminPage() {
         </Button>
       </div>
 
-      <div className="flex w-full h-full flex-col gap-2 bg-red-50 p-4">
-        <h2>Ordenes:</h2>
-        <Bar
-          options={{
-            scales: {
-              x: {
-                stacked: true,
+      <div className=" grid grid-cols-2 gap-2">
+        <div className="flex flex-col gap-2 bg-red-50 p-4">
+          <h2>Ordenes:</h2>
+          <Bar
+            options={{
+              scales: {
+                x: {
+                  stacked: true,
+                },
+                y: {
+                  beginAtZero: true,
+                },
               },
-              y: {
-                beginAtZero: true,
-              },
-            },
-          }}
-          data={{
-            labels: dates,
-            datasets: [
-              {
-                label: "Orders",
-                data: amounts,
-                backgroundColor: "orange",
-                borderColor: "black",
-                borderWidth: 1,
-                hoverBackgroundColor: "pink",
-              },
-            ],
-          }}
-        ></Bar>
-      </div>
-      <div className="flex flex-col gap-2 bg-red-50 p-4">
-        <h2>Products:</h2>
-        <Bar
-          data={{
-            labels: products.map((item) => item.category),
-            datasets: [
-              {
-                label: "Products",
-                backgroundColor: "orange",
-                borderColor: "black",
-                borderWidth: 1,
-                data: products.map((item) => item.cantidad),
-                hoverBackgroundColor: "pink",
-              },
-            ],
-          }}
-        ></Bar>
+            }}
+            data={{
+              labels: dates,
+              datasets: [
+                {
+                  label: "Orders",
+                  data: amounts,
+                  backgroundColor: "orange",
+                  borderColor: "black",
+                  borderWidth: 1,
+                  hoverBackgroundColor: "pink",
+                },
+              ],
+            }}
+          ></Bar>
+        </div>
+        <div className="flex flex-col gap-2 bg-red-50 p-4">
+          <h2>Products:</h2>
+          <Bar
+            data={{
+              labels: products.map((item) => item.category),
+              datasets: [
+                {
+                  label: "Products",
+                  backgroundColor: "orange",
+                  borderColor: "black",
+                  borderWidth: 1,
+                  data: products.map((item) => item.cantidad),
+                  hoverBackgroundColor: "pink",
+                },
+              ],
+            }}
+          ></Bar>
+        </div>
       </div>
     </main>
   );

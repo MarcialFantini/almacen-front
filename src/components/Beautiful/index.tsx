@@ -1,5 +1,6 @@
 import { Button } from "@nextui-org/react";
 import { SliderBeautiful } from "../SliderBeautiful";
+import Link from "next/link";
 
 export const Beautiful = () => {
   return (
@@ -15,7 +16,7 @@ export const Beautiful = () => {
           illum libero ex ducimus eius impedit. Officia minus reiciendis magni
           eveniet!
         </p>
-        <Button color="warning" variant="shadow">
+        <Button as={Link} href="/products" color="warning" variant="shadow">
           Explore More
         </Button>
       </article>

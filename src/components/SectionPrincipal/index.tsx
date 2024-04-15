@@ -1,10 +1,11 @@
 import Image from "next/image";
 import srcDefault from "../../../public/images/home/webp/main-image.webp";
 import { Button } from "@nextui-org/react";
+import Link from "next/link";
 
 export const SectionPrincipal = () => {
   return (
-    <section className=" m-auto max-w-[1200px] flex items-center justify-end relative min-h-[100vh] w-full bg-red-400">
+    <section className=" m-auto max-w-[1200px] flex items-center justify-end relative min-h-[100vh] w-full ">
       <picture className="flex flex-col justify-center items-center overflow-hidden absolute w-full h-full">
         <Image
           className="h-full w-full object-cover"
@@ -23,7 +24,7 @@ export const SectionPrincipal = () => {
           itaque, alias inventore officia rem sapiente. Qui asperiores fugit
           eligendi ipsum odit facere.
         </p>
-        <Button color="warning" variant="shadow">
+        <Button as={Link} href="/products" color="warning" variant="shadow">
           Buy Now
         </Button>
       </article>

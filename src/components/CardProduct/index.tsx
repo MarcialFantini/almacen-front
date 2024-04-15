@@ -1,12 +1,12 @@
 "use client";
 import Image from "next/image";
-import styled from "./styled.module.css";
 import srcWomanDefault from "../../../public/images/home/webp/main-image.webp";
 import { Product } from "@/store/slice/products/product";
 import { useState } from "react";
 import Link from "next/link";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { addOneProduct, addProduct } from "@/store/slice/car/car";
+import { Button } from "@nextui-org/react";
 
 interface props {
   product: Product;
@@ -30,11 +30,11 @@ export const CardProduct = ({ product }: props) => {
   };
 
   return (
-    <article className={styled.containerProduct}>
-      <picture className={styled.picture + " " + (isLoad ? styled.Active : "")}>
+    <article className="flex flex-col aspect-[3/4] ">
+      <picture className="h-[75%] w-full flex">
         <Image
+          className="w-full h-full object-cover"
           onLoad={handlerLoad}
-          className={styled.img + " " + (isLoad ? styled.Active : "")}
           width={500}
           height={400}
           src={
@@ -46,17 +46,22 @@ export const CardProduct = ({ product }: props) => {
           alt=""
         ></Image>
       </picture>
-      <div className={styled.textContainer}>
-        <p className={styled.text}>{product.name}</p>
-        <div className={styled.btnContainer}>
-          <Link style={{ width: "100%" }} href={`/products/one/${product.id}`}>
-            <button className={styled.btn}>Ver mas</button>
-          </Link>
-          <button onClick={handlerMix} className={styled.btn}>
-            Comprar
-          </button>
-        </div>
-        <p className={styled.text}>$ {product.price}</p>
+      <div className="p-2 w-full gap-1 flex flex-col bg-[#F4F5F7]">
+        <h4 className=" text-xl">{product.name}</h4>
+
+        <p>$ {product.price}</p>
+        <Button color="warning" onClick={handlerMix}>
+          Comprar
+        </Button>
+
+        <Button
+          color="primary"
+          variant="shadow"
+          as={Link}
+          href={`/products/one/${product.id}`}
+        >
+          Ver mas
+        </Button>
       </div>
     </article>
   );

@@ -35,7 +35,7 @@ export default function OrdersPage() {
 
   return (
     <div className={styled.view}>
-      <Table className="dark">
+      <Table className="dark text-white">
         <TableHeader>
           <TableColumn>Usuario</TableColumn>
           <TableColumn>Producto</TableColumn>

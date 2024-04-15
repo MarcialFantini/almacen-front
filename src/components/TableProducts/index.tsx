@@ -14,7 +14,7 @@ import {
 
 export const TableProducts = () => {
   const products = useAppSelector(
-    (state) => state.productReducer.adminProducts,
+    (state) => state.productReducer.adminProducts
   );
 
   const dispatch = useAppDispatch();
@@ -24,7 +24,7 @@ export const TableProducts = () => {
     dispatch(DeleteProduct({ id, token: token || "" }));
 
   return (
-    <Table color="primary" className={"dark "}>
+    <Table color="primary" className={"dark text-white"}>
       <TableHeader>
         <TableColumn>name</TableColumn>
         <TableColumn>amount</TableColumn>

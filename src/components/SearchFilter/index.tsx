@@ -7,7 +7,7 @@ import {
 import { Button, Input } from "@nextui-org/react";
 import { ChangeEvent, FormEvent, useState } from "react";
 
-const arrCategory = ["women", "men", "children"];
+const arrCategory = ["Outdoor Furniture", "Interior Furniture"];
 
 export const SearchFilter = () => {
   const dispatch = useAppDispatch();

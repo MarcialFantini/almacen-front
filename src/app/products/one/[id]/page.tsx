@@ -1,11 +1,11 @@
 "use client";
-import styled from "./styled.module.css";
 import { Product } from "@/store/slice/products/product";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import srcDefault from "../../../../../public/images/home/main-image.jpg";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { addOneProduct, addProduct } from "@/store/slice/car/car";
+import { Button } from "@nextui-org/react";
+import Link from "next/link";
 
 export default function ProductPage({ params }: { params: { id: string } }) {
   const [product, setProduct] = useState<Product | null>(null);
@@ -53,9 +53,9 @@ export default function ProductPage({ params }: { params: { id: string } }) {
   }, [car, product]);
 
   return (
-    <section className={styled.view}>
-      <article className={styled.product}>
-        <picture className={styled.picture}>
+    <section className="flex flex-col">
+      <article className="grid grid-cols-2 max-w-[1200px] m-auto ">
+        <picture>
           <Image
             src={
               product && product.ProductImages[0].id
@@ -64,20 +64,38 @@ export default function ProductPage({ params }: { params: { id: string } }) {
                 : ""
             }
             alt=""
-            width={1000}
-            height={1000}
-            className={styled.img + " " + (!!product ? styled.img_active : "")}
+            className=" w-full h-full object-cover"
+            width={1200}
+            height={900}
           ></Image>
         </picture>
-        <div className={styled.containerText}>
-          <h2>{product?.name}</h2>
+        <div className="flex flex-col gap-2 py-4 px-[10%] w-full justify-center">
+          <h2 className=" text-4xl">{product?.name}</h2>
 
-          <p>${product?.price}</p>
-          <p>Cantidad restante: {amountLeft}</p>
-          <div className={styled.containerBtn}>
-            <button onClick={handlerAddProduct}>Comprar</button>
+          <p className="text-xl text-gray-500">${product?.price}</p>
+          <p>Amount: {amountLeft}</p>
+          <div className="flex flex-col gap-2">
+            <Button
+              color="primary"
+              variant="shadow"
+              onClick={handlerAddProduct}
+            >
+              Add car
+            </Button>
             {product && amountLeft !== product.amount ? (
-              <button onClick={handlerAdd}>Agregar mas </button>
+              <>
+                <Button color="warning" variant="ghost" onClick={handlerAdd}>
+                  Add one more{" "}
+                </Button>
+                <Button
+                  href="/car"
+                  color="secondary"
+                  variant="shadow"
+                  as={Link}
+                >
+                  Car
+                </Button>
+              </>
             ) : (
               ""
             )}

@@ -28,7 +28,7 @@ import {
 } from "@nextui-org/react";
 
 const stripePromise = loadStripe(
-  "pk_test_51OvhpuDEoN0AcwY7mfOK6BQ1xkRTohyxNBaqjrVWlkLtkEfMrlFcSIOHkMQ6lyHAyAv1g7VRATL0ynaOcLxcuObg00ZUEsTlmP",
+  "pk_test_51OvhpuDEoN0AcwY7mfOK6BQ1xkRTohyxNBaqjrVWlkLtkEfMrlFcSIOHkMQ6lyHAyAv1g7VRATL0ynaOcLxcuObg00ZUEsTlmP"
 );
 
 export default function CarPage() {
@@ -66,7 +66,7 @@ export default function CarPage() {
     appearance,
   };
   return (
-    <section className=" min-h-[400px]">
+    <section className=" min-h-[400px] w-[90%] max-w-[1200px] m-auto flex flex-col gap-2">
       <header>
         <h2 className=" text-2xl text-center p-4">Carrito de compras</h2>
       </header>

@@ -29,7 +29,7 @@ export default function UsersPage() {
   }, []);
 
   return (
-    <section className={styled.view+" text-white"}>
+    <section className={"w-[95%] max-w-[1200px] m-auto text-white"}>
       <Table color="primary" className="dark">
         <TableHeader>
           <TableColumn>ID</TableColumn>

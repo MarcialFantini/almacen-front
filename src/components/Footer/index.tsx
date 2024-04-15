@@ -4,7 +4,7 @@ export const Footer = () => {
   return (
     <footer
       style={{ gridTemplateColumns: "repeat(auto-fit,minmax(200px,1fr))" }}
-      className="grid gap-2 min-h-[200px] justify-items-center p-4 "
+      className=" bg-yellow-200 mt-[100px] grid gap-2 min-h-[200px] justify-items-start lg:justify-items-center p-4 "
     >
       <div className="flex flex-col h-full">
         <h2 className="text-2xl font-bold py-4">Almacen.</h2>

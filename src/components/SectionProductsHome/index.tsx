@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 import { arrCategories } from "./categories";
 import Image from "next/image";
 

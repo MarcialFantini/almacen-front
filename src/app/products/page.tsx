@@ -17,7 +17,7 @@ export default function ProductsGallery() {
     dispatch(setProductsGallery({ page: 0, offset: 20 }));
   }, []);
   return (
-    <div>
+    <div className="w-[95%] m-auto max-w-[1200px]">
       <picture className="flex w-full h-[300px] overflow-hidden">
         <Image
           className="w-full h-full object-cover"
@@ -26,8 +26,11 @@ export default function ProductsGallery() {
         ></Image>
       </picture>
       <SearchFilter></SearchFilter>
-      <section>
-        <main>
+      <section className="w-[95%] p-2 m-auto">
+        <main
+          style={{ gridTemplateColumns: "repeat(auto-fit,minmax(250px,1fr))" }}
+          className="grid gap-4 "
+        >
           {data.map((product) => {
             return (
               <CardProduct key={product.id} product={product}></CardProduct>
